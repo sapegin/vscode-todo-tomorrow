@@ -10,6 +10,8 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 - Very minimal and fast
 - Useful defaults to cover most use cases
+- Supports JavaScript, TypeScript
+- Supports light and dark modes out of the box
 
 ## Settings
 

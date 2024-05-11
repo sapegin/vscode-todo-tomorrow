@@ -14,13 +14,20 @@ type DecorationType = {
   decorationType: TextEditorDecorationType;
 };
 
+// By default look for C-style comments: // /* */ /** */
+const DEFAULT_COMMENT_PATTERN = '\\s*(?://|\\*)\\s+';
+const COMMENT_PATTERNS: Record<string, string> = {
+  javascript: DEFAULT_COMMENT_PATTERN,
+  typescript: DEFAULT_COMMENT_PATTERN,
+};
+
 export class Decorator {
   /** Number of lines in the document during the last decorate() call  */
   private lineCount = 0;
   /** Numbers of lines where decorations were applied */
   private decoratedLines: Set<number> = new Set();
   /** RegExp pattern to match all comments */
-  private pattern: RegExp;
+  private pattern: RegExp | undefined;
   /** Decoration types for each style */
   private decorationTypes: DecorationType[];
 
@@ -36,7 +43,7 @@ export class Decorator {
 
   public decorate(): void {
     const textEditor = window.activeTextEditor;
-    if (!textEditor) {
+    if (textEditor === undefined || this.pattern === undefined) {
       return;
     }
 
@@ -47,14 +54,15 @@ export class Decorator {
     const matches: Record<string, Range[]> = {};
     let match: RegExpExecArray | null;
     while ((match = this.pattern.exec(text))) {
-      logMessage('Match:', match[0]);
-      const startPos = textEditor.document.positionAt(match.index);
+      const startPos = textEditor.document.positionAt(
+        match.index + (match[0].length - match[1].length),
+      );
       const endPos = textEditor.document.positionAt(
         match.index + match[0].length,
       );
       const range = new Range(startPos, endPos);
 
-      const keyword = match[0].toUpperCase();
+      const keyword = match[1].toUpperCase();
       if (keyword in matches === false) {
         matches[keyword] = [];
       }
@@ -64,16 +72,8 @@ export class Decorator {
       this.decoratedLines.add(startPos.line);
     }
 
-    logMessage('Matches:', matches);
-
     for (const { keywords, decorationType } of this.decorationTypes) {
       const ranges = keywords.flatMap((x) => matches[x]).filter(Boolean);
-      if (ranges.length === 0) {
-        return;
-      }
-
-      // const ranges = matches[keyword] ?? [];
-      logMessage('Set decorations', keywords, ranges);
       textEditor?.setDecorations(decorationType, ranges);
     }
   }
@@ -82,7 +82,7 @@ export class Decorator {
     contentChanges: readonly TextDocumentContentChangeEvent[],
   ) {
     const textEditor = window.activeTextEditor;
-    if (!textEditor) {
+    if (textEditor === undefined || this.pattern === undefined) {
       return;
     }
 
@@ -93,7 +93,7 @@ export class Decorator {
       this.decoratedLines.has(x),
     );
     const shouldHaveDecoratorsOnChangedLines = changedLines.some((x) =>
-      this.pattern.test(textEditor.document.lineAt(x).text),
+      this.pattern?.test(textEditor.document.lineAt(x).text),
     );
 
     // Skip decorating for certain cases to improve performance
@@ -126,15 +126,24 @@ export class Decorator {
     return decorationTypes;
   }
 
-  // TODO: Allow optional : ?
   private getPattern(patterns: KeywordConfig[]) {
+    const languageId = window.activeTextEditor?.document?.languageId;
+    if (!languageId) {
+      return undefined;
+    }
+    const commentPattern = COMMENT_PATTERNS[languageId];
+    if (!commentPattern) {
+      return undefined;
+    }
+
+    logMessage('Language:', languageId);
+
     const pattern = patterns
       .flatMap(({ keywords }) => keywords.map(escapeRegExp))
       .join('|');
 
-    // XXX: Doing something very dangerous here
     logMessage('RegExp:', pattern);
 
-    return new RegExp(pattern, 'gi');
+    return new RegExp(`${commentPattern}(${pattern})`, 'gi');
   }
 }
