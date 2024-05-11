@@ -91,6 +91,6 @@ Bug fixes are welcome, but not new features. Please take a moment to review the 
 
 ## Authors and license
 
-[Artem Sapegin](https://sapegin.me), and [contributors](https://github.com/sapegin/emoji-console-log/graphs/contributors).
+[Artem Sapegin](https://sapegin.me), and [contributors](https://github.com/sapegin/vscode-todo-tomorrow/graphs/contributors).
 
 MIT License, see the included [License.md](License.md) file.
