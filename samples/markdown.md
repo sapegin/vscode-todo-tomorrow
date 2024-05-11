@@ -4,10 +4,12 @@ Alice was beginning to get very tired of sitting by her sister on the bank, and 
 
 So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.
 
-TODO Ideally, comments without : should not be highlighted because we do case insensitive matching and would have false positives. However, the way it's implemented now would make it difficult, so let's see how bad it is.
+TODO Comments without : should not be highlighted because we do case insensitive matching and would have false positives, like in the paragraph below:
 
-Fix me baby one more time... (ideally we shouldn't highlight `fix` here)
+Fix me baby one more time... (`fix` here shouldn't be highlighted)
 
-<!-- TODO: Add the rest of the book -->
+<!-- TODO: Todos in HTML comments are also supported -->
 
-TODO: Add the rest of the book
+XXX: As well as hack comments
+
+<!-- TODO: Hack comment inside HTML comment -->

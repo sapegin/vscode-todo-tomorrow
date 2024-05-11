@@ -23,21 +23,26 @@ const COMMENT_PATTERNS: Record<string, string> = {
   markdown: '(?:^|\\n|<!--\\s*)',
 };
 
+// Require colon (:) after keyword
+const REQUIRE_COLON: Record<string, boolean> = {
+  markdown: true,
+};
+
 export class Decorator {
   private config: ExtensionProperties;
   /** Number of lines in the document during the last decorate() call  */
   private lineCount = 0;
   /** Numbers of lines where decorations were applied */
   private decoratedLines: Set<number> = new Set();
-  /** RegExp pattern to match all comments */
-  private regExps: Record<string, RegExp> = {};
+  /** Pattern to match all comments */
+  private patterns: Record<string, string> = {};
   /** Decoration types for each style */
   private decorationTypes: DecorationType[];
 
   public constructor(config: ExtensionProperties) {
     this.config = config;
     this.decorationTypes = this.getDecorationTypes();
-    this.regExps = {};
+    this.patterns = {};
   }
 
   public updateConfig(config: ExtensionProperties) {
@@ -51,7 +56,7 @@ export class Decorator {
       return;
     }
 
-    const regExp = this.getPattern();
+    const regExp = this.getRegExp();
     if (regExp === undefined) {
       return;
     }
@@ -63,6 +68,8 @@ export class Decorator {
     const matches: Record<string, Range[]> = {};
     let match: RegExpExecArray | null;
     while ((match = regExp.exec(text))) {
+      logMessage('Match:', match[0], `[${match[1]}]`);
+
       const startPos = textEditor.document.positionAt(
         match.index + (match[0].length - match[1].length),
       );
@@ -95,7 +102,7 @@ export class Decorator {
       return;
     }
 
-    const regExp = this.getPattern();
+    const regExp = this.getRegExp();
 
     const hasMultilineChanges =
       contentChanges.every(({ range }) => range.isSingleLine) === false;
@@ -135,31 +142,36 @@ export class Decorator {
     });
   }
 
-  private getPattern() {
+  private getRegExp() {
     const languageId = window.activeTextEditor?.document?.languageId;
     if (!languageId) {
       return undefined;
     }
-    const regExp = this.regExps[languageId];
-    if (regExp) {
-      return regExp;
-    }
 
+    // Return new RegExp every time to avoid issues with the state (`lastIndex`)
+    return new RegExp(this.getPattern(languageId), 'gi');
+  }
+
+  private getPattern(languageId: string) {
     logMessage('Language:', languageId);
+
+    const pattern = this.patterns[languageId];
+    if (pattern) {
+      return pattern;
+    }
 
     const languagePatterns =
       COMMENT_PATTERNS[languageId] ?? DEFAULT_COMMENT_PATTERN;
-    const pattern = this.config.patterns
+    const requireColon = REQUIRE_COLON[languageId] ?? false;
+    const keywordsPattern = this.config.patterns
       .flatMap(({ keywords }) => keywords.map(escapeRegExp))
       .join('|');
 
-    logMessage('RegExp:', pattern);
+    this.patterns[languageId] =
+      `${languagePatterns}(${keywordsPattern})${requireColon ? '(?=:)' : ''}`;
 
-    this.regExps[languageId] = new RegExp(
-      `${languagePatterns}(${pattern})`,
-      'gi',
-    );
+    logMessage('RegExp:', this.patterns[languageId]);
 
-    return this.regExps[languageId];
+    return this.patterns[languageId];
   }
 }

@@ -33,28 +33,33 @@ Here’s how a config file would look like with default options:
 {
   "todoTomorrow.patterns": [
     {
-      "keywords": ["todo:", "@todo:"],
-      "color": "#6b676f"
+      "keywords": ["todo", "@todo"],
+      "fontWeight": "bold"
     },
     {
       "keywords": [
-        "fixme:",
-        "fix:",
-        "xxx:",
-        "bug:",
-        "ugly:",
-        "debug:",
-        "hack:",
-        "@fixme:",
-        "@fix:",
-        "@xxx:",
-        "@bug:",
-        "@ugly:",
-        "@debug:",
-        "@hack:"
+        "fixme",
+        "fix",
+        "xxx",
+        "bug",
+        "ugly",
+        "debug",
+        "hack",
+        "@fixme",
+        "@fix",
+        "@xxx",
+        "@bug",
+        "@ugly",
+        "@debug",
+        "@hack"
       ],
-      "color": "#4c4b4e",
-      "fontWeight": "bold"
+      "fontWeight": "bold",
+      "light": {
+        "color": "#4c4b4e"
+      },
+      "dark": {
+        "color": "#dcd5c0"
+      }
     }
   ]
 }
