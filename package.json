@@ -26,6 +26,9 @@
   "sponsor": {
     "url": "https://www.buymeacoffee.com/sapegin"
   },
+  "galleryBanner": {
+    "color": "#b8dcea"
+  },
   "engines": {
     "vscode": "^1.5.0"
   },
