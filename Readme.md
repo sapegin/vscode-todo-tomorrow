@@ -69,6 +69,14 @@ Here’s how a config file would look like with default options:
 
 The changelog can be found on the [Changelog.md](./Changelog.md) file.
 
+## You may also like
+
+Check out my other Visual Studio Code extensions:
+
+* [Emoji Console Log](https://marketplace.visualstudio.com/items?itemName=sapegin.emoji-console-log): insert `console.log()` statements with a random emoji
+* [Squirrelsong Light Theme](https://marketplace.visualstudio.com/items?itemName=sapegin.Theme-SquirrelsongLight): low contrast non-distracting light theme for web developers
+* [Squirrelsong Dark Theme](https://marketplace.visualstudio.com/items?itemName=sapegin.Theme-SquirrelsongDark): low contrast non-distracting dark theme for web developers
+
 ## Sponsoring
 
 This software has been developed with lots of coffee, buy me one more cup to keep it going.
