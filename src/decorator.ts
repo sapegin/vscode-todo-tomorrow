@@ -14,9 +14,13 @@ type DecorationType = {
 };
 
 // By default look for C-style comments: // /* */ /** */
-const DEFAULT_COMMENT_PATTERN = '\\s*(?://|\\*)\\s+';
+const DEFAULT_COMMENT_PATTERN = '(?://|\\*)\\s*';
 const COMMENT_PATTERNS: Record<string, string> = {
-  markdown: '(?:^|\\n)',
+  // HTML should also support C-style comments for embedded JavaScript and CSS
+  html: '(?:<!--|//|\\*)\\s*',
+  // For Markdown we only support todos at the beginning of a line or inside
+  // an HTML comment
+  markdown: '(?:^|\\n|<!--\\s*)',
 };
 
 export class Decorator {

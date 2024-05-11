@@ -5,6 +5,8 @@
 // FIXME: Basic hack comment
 // @todo: Basic todo comment
 // @hack: Basic hack comment
+//TODO: Basic todo comment
+//@hack: Basic hack comment
 // Shouldn't highlight TODO: or @todo in the middle
 
 /* TODO: Multiline todo comment */
@@ -15,9 +17,12 @@
 /* @todo: Multiline todo comment */
 /* @todo Multiline todo comment */
 /* @hack: Multiline hack comment */
+/*TODO: Multiline todo comment */
+/*@hack: Multiline hack comment */
 /* Shouldn't highlight TODO: or @todo in the middle */
 /*
- * Shouldn't highlight TODO: or @todo in the middle
+ * Shouldn't highlight TODO: or @todo (here it's highlighted by
+ * VS Code's JSDoc support) in the middle
  */
 
 /** TODO: Another multiline todo comment */
@@ -28,6 +33,8 @@
 /** @todo: Another multiline todo comment */
 /** @todo Another multiline todo comment */
 /** @hack: Another multiline hack comment */
+/**TODO: Another multiline todo comment */
+/**@hack: Another multiline hack comment */
 /**
  * Shouldn't highlight TODO: or @todo (here it's highlighted by VS Code's JSDoc
  * support) in the middle

@@ -10,7 +10,7 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 - Very minimal and fast
 - Useful defaults to cover most use cases
-- Supports JavaScript, TypeScript
+- Supports JavaScript, TypeScript, Markdown, HTML, CSS, and any other language with C-style comments (`//` or `/* */`)
 - Supports light and dark modes out of the box
 
 ## Settings
