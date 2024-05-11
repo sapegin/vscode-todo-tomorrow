@@ -1,6 +1,5 @@
 // TODO: Basic todo comment
 // TODO Basic todo comment
-// XXX: Basic hack comment
 // HACK: Basic hack comment
 // FIXME: Basic hack comment
 // @todo: Basic todo comment
@@ -117,7 +116,7 @@
 // @todo [2025-05-11] Todo comment with a deadline
 // TODO [>=1.0.0]: Todo comment with version
 // TODO (@lubien) [>0]: Todo comment with version and at-mention
-// FIXME [>10]: Fixme comment with a version
+// FIXME [react>=19]: Fixme comment with a version
 // XXX [>10]: Fixme comment with a version
 
 export function Test() {
@@ -131,3 +130,39 @@ export function Test() {
     </main>
   );
 }
+
+// ------------------- 8< --- 8< -------------------
+// Main screenshot
+import escapeRegExp from 'lodash/escapeRegExp';
+
+// TODO: Make it prettier
+export function getPattern(patterns) {
+  const pattern = patterns
+    .flatMap(({ keywords }) => keywords.map(escapeRegExp))
+    .join('|');
+
+  console.log('🍕 pattern', pattern);
+
+  // XXX: Doing something very dangerous here
+  return new RegExp(pattern, 'gi');
+}
+
+// ------------------- 8< --- 8< -------------------
+// Screenshot with all types of comments
+
+// TODO: Basic todo comment
+// XXX: Basic hack comment
+// @todo: Basic todo comment
+// @hack: Basic hack comment
+
+/* @todo: Multiline todo comment */
+/* HACK: Multiline hack comment */
+
+/**
+ * A big header comment
+ * TODO: Make it even bigger!
+ */
+
+// TODO [2019-11-15]: Todo comment with a deadline
+// @todo [2025-05-11] Todo comment with a deadline
+// FIXME [react>=19]: Fixme comment with a version

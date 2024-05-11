@@ -15,7 +15,9 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 ## Settings
 
-By default the extension highlights the following types of comments: `TODO`, `FIXME`, `@todo`, etc.
+By default the extension highlights all popular types of comments (`TODO`, `FIXME`, `@todo`, etc. — see the whole list below).
+
+![Supported types of comments](./images/comments.png)
 
 You can override the these keywords and their styles.
 

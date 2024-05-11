@@ -56,7 +56,7 @@
 // @todo [2025-05-11] Todo comment with a deadline
 // TODO [>=1.0.0]: Todo comment with version
 // TODO (@lubien) [>0]: Todo comment with version and at-mention
-// FIXME [>10]: Fixme comment with a version
+// FIXME [react>=19]: Fixme comment with a version
 // XXX [>10]: Fixme comment with a version
 
 export function Test() {
