@@ -4,7 +4,7 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 **[Install from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=sapegin.todo-tomorrow)**
 
-![Todo Tomorrow Visual Studio Code extension](./images/screenshots.png)
+![Todo Tomorrow Visual Studio Code extension](./images/screenshot.png)
 
 ## Features
 
