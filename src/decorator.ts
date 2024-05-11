@@ -1,13 +1,12 @@
 import {
   window,
-  workspace,
   Range,
   type TextEditorDecorationType,
   type TextDocumentContentChangeEvent,
 } from 'vscode';
 import escapeRegExp from 'lodash/escapeRegExp';
 import { logMessage } from './debug';
-import type { KeywordConfig } from './types';
+import type { ExtensionProperties } from './types';
 
 type DecorationType = {
   keywords: string[];
@@ -17,33 +16,39 @@ type DecorationType = {
 // By default look for C-style comments: // /* */ /** */
 const DEFAULT_COMMENT_PATTERN = '\\s*(?://|\\*)\\s+';
 const COMMENT_PATTERNS: Record<string, string> = {
-  javascript: DEFAULT_COMMENT_PATTERN,
-  typescript: DEFAULT_COMMENT_PATTERN,
+  markdown: '(?:^|\\n)',
 };
 
 export class Decorator {
+  private config: ExtensionProperties;
   /** Number of lines in the document during the last decorate() call  */
   private lineCount = 0;
   /** Numbers of lines where decorations were applied */
   private decoratedLines: Set<number> = new Set();
   /** RegExp pattern to match all comments */
-  private pattern: RegExp | undefined;
+  private regExps: Record<string, RegExp> = {};
   /** Decoration types for each style */
   private decorationTypes: DecorationType[];
 
-  public constructor() {
-    const { patterns } = workspace.getConfiguration('todoTomorrow');
-    this.decorationTypes = this.getDecorationTypes(patterns);
-    this.pattern = this.getPattern(patterns);
+  public constructor(config: ExtensionProperties) {
+    this.config = config;
+    this.decorationTypes = this.getDecorationTypes();
+    this.regExps = {};
   }
 
-  public updateConfig() {
-    this.constructor();
+  public updateConfig(config: ExtensionProperties) {
+    this.constructor(config);
+    this.decorate();
   }
 
   public decorate(): void {
     const textEditor = window.activeTextEditor;
-    if (textEditor === undefined || this.pattern === undefined) {
+    if (textEditor === undefined) {
+      return;
+    }
+
+    const regExp = this.getPattern();
+    if (regExp === undefined) {
       return;
     }
 
@@ -53,7 +58,7 @@ export class Decorator {
     const text = textEditor.document.getText();
     const matches: Record<string, Range[]> = {};
     let match: RegExpExecArray | null;
-    while ((match = this.pattern.exec(text))) {
+    while ((match = regExp.exec(text))) {
       const startPos = textEditor.document.positionAt(
         match.index + (match[0].length - match[1].length),
       );
@@ -82,9 +87,11 @@ export class Decorator {
     contentChanges: readonly TextDocumentContentChangeEvent[],
   ) {
     const textEditor = window.activeTextEditor;
-    if (textEditor === undefined || this.pattern === undefined) {
+    if (textEditor === undefined) {
       return;
     }
+
+    const regExp = this.getPattern();
 
     const hasMultilineChanges =
       contentChanges.every(({ range }) => range.isSingleLine) === false;
@@ -93,7 +100,7 @@ export class Decorator {
       this.decoratedLines.has(x),
     );
     const shouldHaveDecoratorsOnChangedLines = changedLines.some((x) =>
-      this.pattern?.test(textEditor.document.lineAt(x).text),
+      regExp?.test(textEditor.document.lineAt(x).text),
     );
 
     // Skip decorating for certain cases to improve performance
@@ -114,36 +121,41 @@ export class Decorator {
     this.decorate();
   }
 
-  private getDecorationTypes(patterns: KeywordConfig[]) {
-    const decorationTypes: DecorationType[] = [];
-    patterns.forEach((pattern) => {
+  private getDecorationTypes() {
+    return this.config.patterns.map((pattern) => {
       const decorationType = window.createTextEditorDecorationType(pattern);
-      decorationTypes.push({
+      return {
         keywords: pattern.keywords.map((x) => x.toUpperCase()),
         decorationType,
-      });
+      };
     });
-    return decorationTypes;
   }
 
-  private getPattern(patterns: KeywordConfig[]) {
+  private getPattern() {
     const languageId = window.activeTextEditor?.document?.languageId;
     if (!languageId) {
       return undefined;
     }
-    const commentPattern = COMMENT_PATTERNS[languageId];
-    if (!commentPattern) {
-      return undefined;
+    const regExp = this.regExps[languageId];
+    if (regExp) {
+      return regExp;
     }
 
     logMessage('Language:', languageId);
 
-    const pattern = patterns
+    const languagePatterns =
+      COMMENT_PATTERNS[languageId] ?? DEFAULT_COMMENT_PATTERN;
+    const pattern = this.config.patterns
       .flatMap(({ keywords }) => keywords.map(escapeRegExp))
       .join('|');
 
     logMessage('RegExp:', pattern);
 
-    return new RegExp(`${commentPattern}(${pattern})`, 'gi');
+    this.regExps[languageId] = new RegExp(
+      `${languagePatterns}(${pattern})`,
+      'gi',
+    );
+
+    return this.regExps[languageId];
   }
 }

@@ -1,24 +1,28 @@
 import { window, workspace, type ExtensionContext } from 'vscode';
 import { logMessage } from './debug';
 import { Decorator } from './decorator';
+import type { ExtensionProperties } from './types';
 
-// TODO: Limit to comments only
-// TODO: Highlight whole line
-// TODO: Highlight whole comment until the end of comment or empty line
 // TODO: Whitelist languages and generate a regexp that matches only comments for this language
-// TODO: Support Markdown: `TODO:` at the beginning of the line
 // TODO: Do not run it in the Output panel
+
+function getExtensionProperties(): ExtensionProperties {
+  const { patterns } = workspace.getConfiguration('todoTomorrow');
+  return {
+    patterns,
+  };
+}
 
 export function activate(context: ExtensionContext) {
   logMessage('✅ Todo Tomorrow starting...');
 
   let activeEditor = window.activeTextEditor;
 
-  const decorator = new Decorator();
+  const decorator = new Decorator(getExtensionProperties());
   decorator.decorate();
 
   context.subscriptions.push(
-    // TODO Update on text change
+    // Update on text change
     workspace.onDidChangeTextDocument(({ document, contentChanges }) => {
       if (
         // Ignore changes that didn't affect text content
@@ -43,8 +47,7 @@ export function activate(context: ExtensionContext) {
     // Update on config change
     workspace.onDidChangeConfiguration(() => {
       logMessage('Config changed, reloading...');
-      decorator.updateConfig();
-      decorator.decorate();
+      decorator.updateConfig(getExtensionProperties());
     }),
   );
 }

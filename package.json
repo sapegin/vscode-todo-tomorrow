@@ -36,7 +36,8 @@
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
-    "onLanguage:typescriptreact"
+    "onLanguage:typescriptreact",
+    "onLanguage:markdown"
   ],
   "main": "out/extension.js",
   "contributes": {
