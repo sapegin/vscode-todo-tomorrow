@@ -46,7 +46,9 @@ export class Decorator {
   }
 
   public updateConfig(config: ExtensionProperties) {
-    this.constructor(config);
+    this.config = config;
+    this.decorationTypes = this.getDecorationTypes();
+    this.patterns = {};
     this.decorate();
   }
 
