@@ -74,27 +74,14 @@
           "default": [
             {
               "keywords": [
-                "todo",
-                "@todo"
-              ],
-              "fontWeight": "bold"
-            },
-            {
-              "keywords": [
-                "fixme",
-                "fix",
-                "xxx",
-                "bug",
-                "ugly",
-                "debug",
-                "hack",
-                "@fixme",
-                "@fix",
-                "@xxx",
                 "@bug",
+                "@hack",
                 "@ugly",
-                "@debug",
-                "@hack"
+                "@xxx",
+                "bug",
+                "hack",
+                "ugly",
+                "xxx"
               ],
               "fontWeight": "bold",
               "light": {
@@ -103,6 +90,19 @@
               "dark": {
                 "color": "#dcd5c0"
               }
+            },
+            {
+              "keywords": [
+                "@debug",
+                "@fix",
+                "@fixme",
+                "@todo",
+                "debug",
+                "fix",
+                "fixme",
+                "todo"
+              ],
+              "fontWeight": "bold"
             }
           ]
         }

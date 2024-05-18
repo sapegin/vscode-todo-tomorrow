@@ -15,7 +15,10 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 ## Settings
 
-By default the extension highlights all popular types of comments (`TODO`, `FIXME`, `@todo`, etc. — see the whole list below).
+By default the extension highlights the following types of comments:
+
+- Warning comments, bold and darker color: `BUG`, `HACK`, `UGLY`, `XXX`, `@bug`, `@hack`, `@ugly`, and `@xxx`.
+- Informational comments, just bold: `DEBUG`, `FIX`, `FIXME`, `TODO`, `@debug`, `@fix`, `@fixme`, and `@todo`.
 
 ![Supported types of comments](./images/comments.png)
 
@@ -28,6 +31,8 @@ You can change the following options in the [Visual Studio Code setting](https:/
 | Groups of patterns to highlight | `todoTomorrow.patterns` | See below |
 
 All keywords are case insensitive. See [all supported decoration options](https://code.visualstudio.com/api/references/vscode-api#DecorationRenderOptions).
+
+The colon (:) after the keyword is optional (`@todo` or `@todo:`) for all languages except Markdown (to avoid false-positives).
 
 Here’s how a config file would look like with default options:
 
