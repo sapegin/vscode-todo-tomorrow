@@ -117,9 +117,9 @@
     "watch": "npm run esbuild-watch",
     "lint": "eslint . --ext .js,.ts,.tsx --cache --fix",
     "format": "prettier --log-level warn --write \"**/*.{js,ts,tsx,md}\"",
-    "pretest": "npm run esbuild-base",
+    "pretest": "npm run lint",
+    "test": "npm run esbuild-base && tsc --noEmit",
     "posttest": "npm run format",
-    "test": "tsc --noEmit",
     "publish": "vsce publish",
     "prepare": "husky"
   },
