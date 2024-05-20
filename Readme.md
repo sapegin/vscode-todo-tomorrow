@@ -4,7 +4,7 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 **[Install from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=sapegin.todo-tomorrow)**
 
-![Todo Tomorrow Visual Studio Code extension](./images/screenshot.png)
+![Todo Tomorrow Visual Studio Code extension](./screenshots/screenshot.png)
 
 ## Features
 
@@ -20,7 +20,7 @@ By default the extension highlights the following types of comments:
 - Warning comments, bold and darker color: `BUG`, `HACK`, `UGLY`, `XXX`, `@bug`, `@hack`, `@ugly`, and `@xxx`.
 - Informational comments, just bold: `DEBUG`, `FIX`, `FIXME`, `TODO`, `@debug`, `@fix`, `@fixme`, and `@todo`.
 
-![Supported types of comments](./images/comments.png)
+![Supported types of comments](./screenshots/comments.png)
 
 You can override the these keywords and their styles.
 
