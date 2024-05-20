@@ -16,14 +16,4 @@ Run linters and tests:
 npm test
 ```
 
-Run compiler in watch mode:
-
-```bash
-npm run watch
-```
-
-Open Visual Studio Code with the extension:
-
-```bash
-code --extensionDevelopmentPath=.
-```
+Run the extension: press F5 or **Run** → **Run Debugging**.
