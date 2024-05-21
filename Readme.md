@@ -17,8 +17,8 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 By default the extension highlights the [most popular comment tags](<https://en.m.wikipedia.org/wiki/Comment_(computer_programming)>):
 
-- Warning comments, bold and darker color: `BODGE`, `BUG`, `HACK`, `KLUDGE`, `UGLY`, `XXX`, `@bodge`, `@bug`, `@hack`, `@kludge`, `@ugly`, and `@xxx`.
-- Informational comments, just bold: `DEBUG`, `FIX`, `FIXME`, `NOTE`, `TODO`, `UNDONE`, `@debug`, `@fix`, `@fixme`, `@note`, `@todo`, and `@undone`.
+- **Warning comments,** bold and darker color: `BODGE`, `BUG`, `HACK`, `KLUDGE`, `UGLY`, `XXX`, `@bodge`, `@bug`, `@hack`, `@kludge`, `@ugly`, and `@xxx`.
+- **Informational comments,** just bold: `DEBUG`, `FIX`, `FIXME`, `NOTE`, `TODO`, `UNDONE`, `@debug`, `@fix`, `@fixme`, `@note`, `@todo`, and `@undone`.
 
 ![Supported types of comments](./screenshots/comments.png)
 
@@ -40,25 +40,36 @@ Here’s how a config file would look like with default options:
 {
   "todoTomorrow.patterns": [
     {
-      "keywords": ["todo", "@todo"],
+      "keywords": [
+        "@debug",
+        "@fix",
+        "@fixme",
+        "@note",
+        "@todo",
+        "@undone",
+        "debug",
+        "fix",
+        "fixme",
+        "note",
+        "todo",
+        "undone"
+      ],
       "fontWeight": "bold"
     },
     {
       "keywords": [
-        "fixme",
-        "fix",
-        "xxx",
-        "bug",
-        "ugly",
-        "debug",
-        "hack",
-        "@fixme",
-        "@fix",
-        "@xxx",
+        "@bodge",
         "@bug",
+        "@hack",
+        "@kludge",
         "@ugly",
-        "@debug",
-        "@hack"
+        "@xxx",
+        "bodge",
+        "bug",
+        "hack",
+        "kludge",
+        "ugly",
+        "xxx"
       ],
       "fontWeight": "bold",
       "light": {
