@@ -98,14 +98,14 @@
             {
               "keywords": [
                 "@debug",
-                "@fix",
                 "@fixme",
+                "@fix",
                 "@note",
                 "@todo",
                 "@undone",
                 "debug",
-                "fix",
                 "fixme",
+                "fix",
                 "note",
                 "todo",
                 "undone"

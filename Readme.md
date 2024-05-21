@@ -42,14 +42,14 @@ Here’s how a config file would look like with default options:
     {
       "keywords": [
         "@debug",
-        "@fix",
         "@fixme",
+        "@fix",
         "@note",
         "@todo",
         "@undone",
         "debug",
-        "fix",
         "fixme",
+        "fix",
         "note",
         "todo",
         "undone"
