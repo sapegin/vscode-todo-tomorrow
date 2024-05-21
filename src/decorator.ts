@@ -41,9 +41,10 @@ const COMMENT_PATTERNS: Record<string, string> = {
   shellscript: HASH_COMMENT_PATTERN,
 };
 
-// Require colon (:) after keyword
-const REQUIRE_COLON: Record<string, boolean> = {
-  markdown: true,
+// Patterns after the keyword
+const SUFFIX_PATTERNS: Record<string, string> = {
+  // Require colon (:), new line or end of file after keyword
+  markdown: '(?=:|\\n|$)',
 };
 
 export class Decorator {
@@ -182,13 +183,13 @@ export class Decorator {
 
     const languagePatterns =
       COMMENT_PATTERNS[languageId] ?? DEFAULT_COMMENT_PATTERN;
-    const requireColon = REQUIRE_COLON[languageId] ?? false;
+    const suffix = SUFFIX_PATTERNS[languageId] ?? '';
     const keywordsPattern = this.config.patterns
       .flatMap(({ keywords }) => keywords.map(escapeRegExp))
       .join('|');
 
     this.patterns[languageId] =
-      `${languagePatterns}(${keywordsPattern})${requireColon ? '(?=:)' : ''}`;
+      `${languagePatterns}(${keywordsPattern})${suffix}`;
 
     logMessage('RegExp:', this.patterns[languageId]);
 

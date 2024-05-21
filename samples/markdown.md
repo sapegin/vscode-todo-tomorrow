@@ -13,3 +13,11 @@ Fix me baby one more time... (`fix` here shouldn't be highlighted)
 XXX: As well as hack comments
 
 <!-- TODO: Hack comment inside HTML comment -->
+
+# A wonderful new section
+
+TODO
+
+## Another unwritten section
+
+TODO
