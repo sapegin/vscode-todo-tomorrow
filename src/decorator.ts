@@ -21,6 +21,9 @@ const COMMENT_PATTERNS: Record<string, string> = {
   // For Markdown we only support todos at the beginning of a line or inside
   // an HTML comment
   markdown: '(?:^|\\n|<!--\\s*)',
+  // Lua: -- --[[
+  // Only support single-line comments and the first line of multiline comments
+  lua: '(?:--|--\\[\\[)\\s*',
 };
 
 // Require colon (:) after keyword

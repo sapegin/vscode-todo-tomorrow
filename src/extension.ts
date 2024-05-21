@@ -3,9 +3,6 @@ import { logMessage } from './debug';
 import { Decorator } from './decorator';
 import type { ExtensionProperties } from './types';
 
-// TODO: Whitelist languages and generate a regexp that matches only comments for this language
-// TODO: Do not run it in the Output panel
-
 function getExtensionProperties(): ExtensionProperties {
   const { patterns } = workspace.getConfiguration('todoTomorrow');
   return {
