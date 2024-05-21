@@ -15,10 +15,10 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 ## Settings
 
-By default the extension highlights the following types of comments:
+By default the extension highlights the [most popular comment tags](<https://en.m.wikipedia.org/wiki/Comment_(computer_programming)>):
 
-- Warning comments, bold and darker color: `BUG`, `HACK`, `UGLY`, `XXX`, `@bug`, `@hack`, `@ugly`, and `@xxx`.
-- Informational comments, just bold: `DEBUG`, `FIX`, `FIXME`, `TODO`, `@debug`, `@fix`, `@fixme`, and `@todo`.
+- Warning comments, bold and darker color: `BODGE`, `BUG`, `HACK`, `KLUDGE`, `UGLY`, `XXX`, `@bodge`, `@bug`, `@hack`, `@kludge`, `@ugly`, and `@xxx`.
+- Informational comments, just bold: `DEBUG`, `FIX`, `FIXME`, `NOTE`, `TODO`, `UNDONE`, `@debug`, `@fix`, `@fixme`, `@note`, `@todo`, and `@undone`.
 
 ![Supported types of comments](./screenshots/comments.png)
 

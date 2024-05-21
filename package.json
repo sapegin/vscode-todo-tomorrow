@@ -74,12 +74,16 @@
           "default": [
             {
               "keywords": [
+                "@bodge",
                 "@bug",
                 "@hack",
+                "@kludge",
                 "@ugly",
                 "@xxx",
+                "bodge",
                 "bug",
                 "hack",
+                "kludge",
                 "ugly",
                 "xxx"
               ],
@@ -96,11 +100,15 @@
                 "@debug",
                 "@fix",
                 "@fixme",
+                "@note",
                 "@todo",
+                "@undone",
                 "debug",
                 "fix",
                 "fixme",
-                "todo"
+                "note",
+                "todo",
+                "undone"
               ],
               "fontWeight": "bold"
             }
