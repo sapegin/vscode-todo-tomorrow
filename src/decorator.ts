@@ -17,6 +17,7 @@ type DecorationType = {
 const DEFAULT_COMMENT_PATTERN = '(?://|\\*)\\s*';
 // Shell-style comments: #
 const HASH_COMMENT_PATTERN = '(?:#)\\s*';
+const PERCENT_COMMENT_PATTERN = '(?:%)\\s*';
 const COMMENT_PATTERNS: Record<string, string> = {
   // HTML should also support C-style comments for embedded JavaScript and CSS
   html: '(?:<!--|//|\\*)\\s*',
@@ -39,6 +40,7 @@ const COMMENT_PATTERNS: Record<string, string> = {
   perl: HASH_COMMENT_PATTERN,
   r: HASH_COMMENT_PATTERN,
   shellscript: HASH_COMMENT_PATTERN,
+  erlang: PERCENT_COMMENT_PATTERN,
 };
 
 // Patterns after the keyword
