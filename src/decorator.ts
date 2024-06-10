@@ -41,6 +41,7 @@ const COMMENT_PATTERNS: Record<string, string> = {
   r: HASH_COMMENT_PATTERN,
   shellscript: HASH_COMMENT_PATTERN,
   erlang: PERCENT_COMMENT_PATTERN,
+  elixir: HASH_COMMENT_PATTERN,
 };
 
 // Patterns after the keyword
