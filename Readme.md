@@ -11,7 +11,7 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 - Very minimal and fast
 - Useful defaults to cover most use cases
 - Supports Bash, CSS, Elixir, Erlang, HTML, JavaScript, Lua, Markdown, Perl, PHP, Python, R, Ruby, SQL, TypeScript, and any other language with C-style comments (`//` or `/* */`)
-- Supports light and dark modes out of the box
+- Supports light and dark modes out of the box, and doesn’t come with insanely bright colors by default
 
 ## Settings
 
