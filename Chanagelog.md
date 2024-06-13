@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Support Elixir and Erlang.
+
 ## 1.1.0
 
 - Support Bash, Lua, Perl, PHP, Python, R, Ruby, and SQL (only single-line comments).
