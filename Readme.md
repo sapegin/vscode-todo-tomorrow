@@ -84,6 +84,14 @@ Here’s how a config file would look like with default options:
 }
 ```
 
+## Motivation
+
+Most existing extensions for highlighting `TODO` and `FIXME` comments. (for example, [this](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight) or [this](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)) have very bright colors by default; they also show the comments on the scrollbar. This makes them very distracting. `TODO` and `FIXME` comments don’t need to be resolved immediately, and in many cases, they can stay in the codebase for a long time. They are more like tips and warnings for the code reader. I usually write lots of `TODO` comments when I write code, and I don’t want them to distract me — most I will resolve before sending code to review.
+
+The same way we highlight important information in text using bold and italic, we can highlight comments using bold for `TODO` comments (I consider them _informational_) and bold with slightly darker text color for `HACK` and `FIXME` comments (I consider them _warnings_). There’s no need to make them scream at you with an obnoxiously bright pink background.
+
+That’s exactly what Todo Tomorrow does out of the box.
+
 ## Changelog
 
 The changelog can be found on the [Changelog.md](./Changelog.md) file.
