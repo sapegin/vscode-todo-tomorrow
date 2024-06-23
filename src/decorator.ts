@@ -37,11 +37,14 @@ const COMMENT_PATTERNS: Record<string, string> = {
   // Ruby: #
   // Only support single-line comments, no multiline (=begin ... =end)
   ruby: HASH_COMMENT_PATTERN,
+  // Hash comments: #
   perl: HASH_COMMENT_PATTERN,
   r: HASH_COMMENT_PATTERN,
   shellscript: HASH_COMMENT_PATTERN,
-  erlang: PERCENT_COMMENT_PATTERN,
   elixir: HASH_COMMENT_PATTERN,
+  // Percent comments: %
+  erlang: PERCENT_COMMENT_PATTERN,
+  latex: PERCENT_COMMENT_PATTERN,
 };
 
 // Patterns after the keyword
