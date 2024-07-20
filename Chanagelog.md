@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Remove more unnecessary files form the package.
+
 ## 1.3.0
 
 - Support LaTeX.
