@@ -18,8 +18,8 @@ Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comm
 
 By default the extension highlights the [most popular comment tags](<https://en.m.wikipedia.org/wiki/Comment_(computer_programming)>):
 
-- **Warning comments,** bold and darker color: `BODGE`, `BUG`, `HACK`, `KLUDGE`, `UGLY`, `XXX`, `@bodge`, `@bug`, `@hack`, `@kludge`, `@ugly`, and `@xxx`.
-- **Informational comments,** just bold: `DEBUG`, `FIX`, `FIXME`, `NOTE`, `TODO`, `UNDONE`, `@debug`, `@fix`, `@fixme`, `@note`, `@todo`, and `@undone`.
+- **Warning comments,** bold and darker color: `BODGE:`, `BUG:`, `HACK:`, `KLUDGE:`, `UGLY:`, `XXX:`, `@bodge`, `@bug`, `@hack`, `@kludge`, `@ugly`, and `@xxx`.
+- **Informational comments,** just bold: `DEBUG:`, `FIX:`, `FIXME:`, `NOTE:`, `TODO:`, `UNDONE:`, `@debug`, `@fix`, `@fixme`, `@note`, `@todo`, and `@undone`.
 
 ![Supported types of comments](./screenshots/comments.png)
 
@@ -31,9 +31,9 @@ You can change the following options in the [Visual Studio Code setting](https:/
 | --- | --- | --- |
 | Groups of patterns to highlight | `todoTomorrow.patterns` | See below |
 
-All keywords are case insensitive. See [all supported decoration options](https://code.visualstudio.com/api/references/vscode-api#DecorationRenderOptions).
+Matches are case-sensitive, and only two forms of each keyword are matched: `@pizza` or `PIZZA`. However, the case of keywords in the config file is ignored.
 
-The colon (:) after the keyword is optional (`@todo` or `@todo:`) for all languages except Markdown (to avoid false-positives).
+See [all supported decoration options](https://code.visualstudio.com/api/references/vscode-api#DecorationRenderOptions).
 
 Here’s how a config file would look like with default options:
 
@@ -41,37 +41,11 @@ Here’s how a config file would look like with default options:
 {
   "todoTomorrow.patterns": [
     {
-      "keywords": [
-        "@debug",
-        "@fixme",
-        "@fix",
-        "@note",
-        "@todo",
-        "@undone",
-        "debug",
-        "fixme",
-        "fix",
-        "note",
-        "todo",
-        "undone"
-      ],
+      "keywords": ["debug", "fixme", "fix", "note", "todo", "undone"],
       "fontWeight": "bold"
     },
     {
-      "keywords": [
-        "@bodge",
-        "@bug",
-        "@hack",
-        "@kludge",
-        "@ugly",
-        "@xxx",
-        "bodge",
-        "bug",
-        "hack",
-        "kludge",
-        "ugly",
-        "xxx"
-      ],
+      "keywords": ["bodge", "bug", "hack", "kludge", "ugly", "xxx"],
       "fontWeight": "bold",
       "light": {
         "color": "#4c4b4e"

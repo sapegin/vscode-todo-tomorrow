@@ -6,7 +6,7 @@ So she was considering in her own mind (as well as she could, for the hot day ma
 
 TODO Comments without : should not be highlighted because we do case insensitive matching and would have false positives, like in the paragraph below:
 
-Fix me baby one more time... (`fix` here shouldn't be highlighted)
+Fix me baby one more time... (`fix` here shouldn’t be highlighted)
 
 <!-- TODO: Todos in HTML comments are also supported -->
 
@@ -15,6 +15,8 @@ XXX: As well as hack comments
 <!-- TODO: Hack comment inside HTML comment -->
 
 # A wonderful new section
+
+These are called _stray keywords_:
 
 TODO
 

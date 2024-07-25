@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0
+
+- Stricter matching to avoid false positives:
+  - More precise matching of multiline comments.
+  - Matches are now case-sensitive, and only two forms of each keyword are matched: `@pizza` or `PIZZA`.
+  - Simplify the config: no need to duplicate keywords with and without `@`.
+
 ## 1.3.1
 
 - Remove more unnecessary files form the package.

@@ -74,12 +74,6 @@
           "default": [
             {
               "keywords": [
-                "@bodge",
-                "@bug",
-                "@hack",
-                "@kludge",
-                "@ugly",
-                "@xxx",
                 "bodge",
                 "bug",
                 "hack",
@@ -97,12 +91,6 @@
             },
             {
               "keywords": [
-                "@debug",
-                "@fixme",
-                "@fix",
-                "@note",
-                "@todo",
-                "@undone",
                 "debug",
                 "fixme",
                 "fix",

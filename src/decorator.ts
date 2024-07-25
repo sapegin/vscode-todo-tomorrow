@@ -14,7 +14,7 @@ type DecorationType = {
 };
 
 // By default look for C-style comments: // /* */ /** */
-const DEFAULT_COMMENT_PATTERN = '(?://|\\*)\\s*';
+const DEFAULT_COMMENT_PATTERN = '(?://|/\\*\\*?| \\*|^\\*)\\s*';
 // Shell-style comments: #
 const HASH_COMMENT_PATTERN = '(?:#)\\s*';
 const PERCENT_COMMENT_PATTERN = '(?:%)\\s*';
@@ -47,11 +47,9 @@ const COMMENT_PATTERNS: Record<string, string> = {
   latex: PERCENT_COMMENT_PATTERN,
 };
 
-// Patterns after the keyword
-const SUFFIX_PATTERNS: Record<string, string> = {
-  // Require colon (:), new line or end of file after keyword
-  markdown: '(?=:|\\n|$)',
-};
+// Languages that allow stray keywords, meaning a keyword is standing on it’s
+// own line
+const ENABLE_STRAY_KEYWORDS = ['markdown'];
 
 export class Decorator {
   private config: ExtensionProperties;
@@ -95,7 +93,12 @@ export class Decorator {
     const matches: Record<string, Range[]> = {};
     let match: RegExpExecArray | null;
     while ((match = regExp.exec(text))) {
-      logMessage('Match:', match[0], `[${match[1]}]`);
+      const keyword = match[1]
+        .replace(/^@/, '')
+        .replace(/:$/, '')
+        .trim()
+        .toUpperCase();
+      logMessage('Match:', match, `[${keyword}]`);
 
       const startPos = textEditor.document.positionAt(
         match.index + (match[0].length - match[1].length),
@@ -105,7 +108,6 @@ export class Decorator {
       );
       const range = new Range(startPos, endPos);
 
-      const keyword = match[1].toUpperCase();
       if (keyword in matches === false) {
         matches[keyword] = [];
       }
@@ -175,8 +177,8 @@ export class Decorator {
       return undefined;
     }
 
-    // Return new RegExp every time to avoid issues with the state (`lastIndex`)
-    return new RegExp(this.getPattern(languageId), 'gi');
+    // Return a new RegExp every time to avoid issues with the state (`lastIndex`)
+    return new RegExp(this.getPattern(languageId), 'g');
   }
 
   private getPattern(languageId: string) {
@@ -189,13 +191,13 @@ export class Decorator {
 
     const languagePatterns =
       COMMENT_PATTERNS[languageId] ?? DEFAULT_COMMENT_PATTERN;
-    const suffix = SUFFIX_PATTERNS[languageId] ?? '';
+    const enableStrayKeywords = ENABLE_STRAY_KEYWORDS.includes(languageId);
     const keywordsPattern = this.config.patterns
       .flatMap(({ keywords }) => keywords.map(escapeRegExp))
       .join('|');
 
     this.patterns[languageId] =
-      `${languagePatterns}(${keywordsPattern})${suffix}`;
+      `${languagePatterns}((?:@(?:${keywordsPattern}))|(?:(?:${keywordsPattern.toUpperCase()})${enableStrayKeywords ? '(?:[:]|\\n|$)' : ':'}))`;
 
     logMessage('RegExp:', this.patterns[languageId]);
 
