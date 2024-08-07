@@ -37,14 +37,13 @@ export function activate(context: ExtensionContext) {
 
     // Update on editor change
     window.onDidChangeActiveTextEditor((editor) => {
+      // Ignore output panel
+      if (editor?.document.languageId === 'Log') {
+        return;
+      }
+
       activeEditor = editor;
       decorator.decorate();
-    }),
-
-    // Update on config change
-    workspace.onDidChangeConfiguration(() => {
-      logMessage('Config changed, reloading...');
-      decorator.updateConfig(getExtensionProperties());
     }),
   );
 }

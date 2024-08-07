@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1
+
+- Fix stuck decorations after removing/updating todo comments created before the document was open.
+- Remove config change handling (as it was causing the issue).
+
 ## 1.4.0
 
 - Stricter matching to avoid false positives:

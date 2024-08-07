@@ -68,20 +68,13 @@ export class Decorator {
     this.patterns = {};
   }
 
-  public updateConfig(config: ExtensionProperties) {
-    this.config = config;
-    this.decorationTypes = this.getDecorationTypes();
-    this.patterns = {};
-    this.decorate();
-  }
-
   public decorate(): void {
     const textEditor = window.activeTextEditor;
     if (textEditor === undefined) {
       return;
     }
 
-    const regExp = this.getRegExp();
+    const regExp = this.getRegExp({ global: true });
     if (regExp === undefined) {
       return;
     }
@@ -119,6 +112,7 @@ export class Decorator {
 
     for (const { keywords, decorationType } of this.decorationTypes) {
       const ranges = keywords.flatMap((x) => matches[x]).filter(Boolean);
+      logMessage('Add decoration', decorationType, keywords, ranges);
       textEditor?.setDecorations(decorationType, ranges);
     }
   }
@@ -133,6 +127,8 @@ export class Decorator {
 
     const regExp = this.getRegExp();
 
+    const hasLineNumberChanged =
+      this.lineCount !== textEditor.document.lineCount;
     const hasMultilineChanges =
       contentChanges.every(({ range }) => range.isSingleLine) === false;
     const changedLines = contentChanges.map(({ range }) => range.start.line);
@@ -145,13 +141,9 @@ export class Decorator {
 
     // Skip decorating for certain cases to improve performance
     if (
-      // No lines were added or removed
-      this.lineCount === textEditor.document.lineCount &&
-      // All changes are single line changes
+      hasLineNumberChanged === false &&
       hasMultilineChanges === false &&
-      // Had no decorators on changed lines
       hadDecoratorsOnChangedLines === false &&
-      // No need to add decorators to changed lines
       shouldHaveDecoratorsOnChangedLines === false
     ) {
       logMessage('Skip decoration...');
@@ -171,14 +163,14 @@ export class Decorator {
     });
   }
 
-  private getRegExp() {
+  private getRegExp({ global = false } = {}) {
     const languageId = window.activeTextEditor?.document?.languageId;
     if (!languageId) {
       return undefined;
     }
 
     // Return a new RegExp every time to avoid issues with the state (`lastIndex`)
-    return new RegExp(this.getPattern(languageId), 'g');
+    return new RegExp(this.getPattern(languageId), global ? 'g' : '');
   }
 
   private getPattern(languageId: string) {
