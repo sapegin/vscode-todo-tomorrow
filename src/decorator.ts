@@ -14,23 +14,23 @@ type DecorationType = {
 };
 
 // By default look for C-style comments: // /* */ /** */
-const DEFAULT_COMMENT_PATTERN = '(?://|/\\*\\*?| \\*|^\\*)\\s*';
+const DEFAULT_COMMENT_PATTERN = String.raw`(?://|/\*\*?| \*|^\*)\s*`;
 // Shell-style comments: #
-const HASH_COMMENT_PATTERN = '(?:#)\\s*';
-const PERCENT_COMMENT_PATTERN = '(?:%)\\s*';
+const HASH_COMMENT_PATTERN = String.raw`(?:#)\s*`;
+const PERCENT_COMMENT_PATTERN = String.raw`(?:%)\s*`;
 const COMMENT_PATTERNS: Record<string, string> = {
   // HTML should also support C-style comments for embedded JavaScript and CSS
-  html: '(?:<!--|//|\\*)\\s*',
+  html: String.raw`(?:<!--|//|\*)\s*`,
   // For Markdown we only support todos at the beginning of a line or inside
   // an HTML comment
-  markdown: '(?:^|\\n|<!--\\s*)',
+  markdown: String.raw`(?:^|\n|<!--\s*)`,
   // Lua: -- --[[
   // Only support single-line comments and the first line of multiline comments
-  lua: '(?:--|--\\[\\[)\\s*',
+  lua: String.raw`(?:--|--\[\[)\s*`,
   // SQL: --
-  sql: '(?:--)\\s*',
+  sql: String.raw`(?:--)\s*`,
   // PHP: / /* */ /** */ #
-  php: '(?://|\\*|#)\\s*',
+  php: String.raw`(?://|\*|#)\s*`,
   // Python: #
   // Only support single-line comments, no multiline (""" ... """)
   python: HASH_COMMENT_PATTERN,
@@ -185,11 +185,13 @@ export class Decorator {
       COMMENT_PATTERNS[languageId] ?? DEFAULT_COMMENT_PATTERN;
     const enableStrayKeywords = ENABLE_STRAY_KEYWORDS.includes(languageId);
     const keywordsPattern = this.config.patterns
-      .flatMap(({ keywords }) => keywords.map(escapeRegExp))
+      .flatMap(({ keywords }) =>
+        keywords.map((keyword) => escapeRegExp(keyword)),
+      )
       .join('|');
 
     this.patterns[languageId] =
-      `${languagePatterns}((?:@(?:${keywordsPattern}))|(?:(?:${keywordsPattern.toUpperCase()})${enableStrayKeywords ? '(?:[:]|\\n|$)' : ':'}))`;
+      `${languagePatterns}((?:@(?:${keywordsPattern}))|(?:(?:${keywordsPattern.toUpperCase()})${enableStrayKeywords ? String.raw`(?:[:]|\n|$)` : ':'}))`;
 
     logMessage('RegExp:', this.patterns[languageId]);
 
