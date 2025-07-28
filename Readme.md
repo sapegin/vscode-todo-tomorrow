@@ -2,7 +2,7 @@
 
 Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comments.
 
-**[Install from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=sapegin.todo-tomorrow)**
+**Install from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=sapegin.todo-tomorrow) or [Open VSX Registry](https://open-vsx.org/extension/sapegin/todo-tomorrow)**
 
 [![Washing your code. A book on clean code for frontend developers](https://sapegin.me/images/washing-code-github.jpg)](https://sapegin.me/book/)
 
