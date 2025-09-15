@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+- Update readme
+
 ## 1.3.1
 
 - Fix stuck decorations after removing/updating todo comments created before the document was open.
