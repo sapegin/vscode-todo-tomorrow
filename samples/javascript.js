@@ -137,7 +137,7 @@ export function Test() {
 
 // ------------------- 8< --- 8< -------------------
 // Main screenshot
-import escapeRegExp from 'lodash/escapeRegExp';
+import escapeRegExp from './escapeRegExp';
 
 // TODO: Make it prettier
 export function getPattern(patterns) {

@@ -4,7 +4,6 @@ import {
   type TextEditorDecorationType,
   type TextDocumentContentChangeEvent,
 } from 'vscode';
-import escapeRegExp from 'lodash/escapeRegExp';
 import { logMessage } from './debug';
 import type { ExtensionProperties } from './types';
 
@@ -50,6 +49,13 @@ const COMMENT_PATTERNS: Record<string, string> = {
 // Languages that allow stray keywords, meaning a keyword is standing on it’s
 // own line
 const ENABLE_STRAY_KEYWORDS = ['markdown'];
+
+/**
+ * Escapes special characters in a RegExp string.
+ */
+function escapeRegExp(string: string): string {
+  return string.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
+}
 
 export class Decorator {
   private config: ExtensionProperties;
