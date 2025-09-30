@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.3.3
+
+- Zero dependencies: remove Lodash dependency.
+
 ## 1.3.2
 
-- Update readme
+- Update readme.
 
 ## 1.3.1
 
