@@ -1,5 +1,7 @@
 # Todo Tomorrow Visual Studio Code extension ✅
 
+**[Repository moved](https://github.com/sapegin/raccoon-vscode/tree/main/extensions/todo-tomorrow)**
+
 Visual Studio Code extension for highlighting `TODO`, `HACK`, `FIXME`, etc. comments.
 
 **Install from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=sapegin.todo-tomorrow) or [Open VSX Registry](https://open-vsx.org/extension/sapegin/todo-tomorrow)**
